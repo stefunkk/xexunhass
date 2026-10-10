@@ -1,0 +1,7 @@
+# Private – never commit
+Data.md
+*.docx
+ha_config/
+
+__pycache__/
+*.zip

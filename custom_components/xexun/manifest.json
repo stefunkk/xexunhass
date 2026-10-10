@@ -1,0 +1,11 @@
+{
+  "domain": "xexun",
+  "name": "Xexun Tracker",
+  "codeowners": ["@stefunkk"],
+  "config_flow": true,
+  "documentation": "https://github.com/stefunkk/xexunhass",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/stefunkk/xexunhass/issues",
+  "requirements": [],
+  "version": "0.1.0"
+}

@@ -1,0 +1,51 @@
+# Xexun Tracker – notification example
+#
+# Sends a notification when a tracker:
+#   - has not reported for longer than the configured threshold (default 10 h)
+#   - has a battery level of 20 % or less
+#
+# Replace the entity IDs (rex / luna) with your own and notify.notify with your notify service.
+- id: xexun_tracker_alerts
+  alias: Xexun tracker alerts
+  description: Notify when a tracker goes silent or its battery is low
+  triggers:
+    - trigger: state
+      id: no_data
+      entity_id:
+        - binary_sensor.rex_no_data
+        - binary_sensor.luna_no_data
+      from: "off"
+      to: "on"
+    - trigger: numeric_state
+      id: battery
+      entity_id:
+        - sensor.rex_battery
+        - sensor.luna_battery
+      below: 21
+  actions:
+    - variables:
+        tracker: "{{ device_attr(device_id(trigger.entity_id), 'name') }}"
+    - choose:
+        - conditions:
+            - condition: trigger
+              id: no_data
+          sequence:
+            - variables:
+                last_seen: "{{ states(trigger.entity_id | replace('binary_sensor.', 'sensor.') | replace('_no_data', '_last_seen')) }}"
+            - action: notify.notify
+              data:
+                title: Tracker is silent
+                message: >-
+                  {{ tracker }}: no data for more than
+                  {{ state_attr(trigger.entity_id, 'threshold_hours') | int }} h.
+                  Last seen: {{ as_timestamp(last_seen) | timestamp_custom('%d.%m %H:%M')
+                  if last_seen not in ['unknown', 'unavailable'] else 'never' }}
+        - conditions:
+            - condition: trigger
+              id: battery
+          sequence:
+            - action: notify.notify
+              data:
+                title: Tracker battery low
+                message: "{{ tracker }}: battery {{ trigger.to_state.state }} %"
+  mode: queued
