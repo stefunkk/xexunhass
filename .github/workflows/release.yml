@@ -1,0 +1,30 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Attach xexun.zip
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set version in manifest.json
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          jq --arg v "$version" '.version = $v' custom_components/xexun/manifest.json > manifest.tmp
+          mv manifest.tmp custom_components/xexun/manifest.json
+
+      - name: Zip integration
+        working-directory: custom_components/xexun
+        run: zip -r "$GITHUB_WORKSPACE/xexun.zip" . -x "__pycache__/*"
+
+      - name: Upload zip to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "$GITHUB_REF_NAME" xexun.zip --clobber

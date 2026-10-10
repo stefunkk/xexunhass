@@ -1,0 +1,48 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Xexun Tracker",
+        "data": {
+          "username": "Login",
+          "password": "Hasło",
+          "trackers": "Trackery (jeden na linię: Nazwa: IMEI)"
+        }
+      },
+      "reconfigure": {
+        "title": "Xexun Tracker",
+        "data": {
+          "username": "Login",
+          "password": "Hasło",
+          "trackers": "Trackery (jeden na linię: Nazwa: IMEI)"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Nieprawidłowy login lub hasło",
+      "cannot_connect": "Brak połączenia z tracker.xexun.com",
+      "invalid_trackers": "Podaj po jednym 'Nazwa: IMEI' w linii"
+    },
+    "abort": {
+      "already_configured": "Konto jest już skonfigurowane",
+      "reauth_successful": "Ponowne logowanie udane",
+      "reconfigure_successful": "Zmieniono konfigurację"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": { "threshold_hours": "Alarm po braku danych przez (godziny)" }
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "last_seen": { "name": "Ostatni wpis" },
+      "battery": { "name": "Bateria" }
+    },
+    "binary_sensor": {
+      "no_data": { "name": "Brak danych" }
+    }
+  }
+}
