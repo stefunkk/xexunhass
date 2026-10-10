@@ -20,7 +20,7 @@ It tells you **when a tracker goes silent** and **how much battery it has left**
 - A **Last seen** timestamp, a **Battery** level and a **No data** problem sensor for each tracker
 - Configurable "no data" threshold (default **10 h**)
 - Automatic re-login when the session token expires, and a re-authentication prompt if the password changes
-- Light on the Xexun cloud: 2–3 small requests per tracker every 15 minutes
+- Light on the Xexun cloud: 2–3 small requests per tracker every 4 hours, plus one extra check right when a tracker would cross the threshold, so the alert is not delayed
 
 ## Installation
 

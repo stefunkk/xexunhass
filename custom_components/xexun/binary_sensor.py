@@ -10,14 +10,12 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.util import dt as dt_util
 
 from . import XexunConfigEntry
-from .const import CONF_THRESHOLD_HOURS, DEFAULT_THRESHOLD_HOURS
 from .entity import XexunEntity
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: XexunConfigEntry, async_add_entities: AddEntitiesCallback) -> None:
     coordinator = entry.runtime_data
-    threshold = timedelta(hours=entry.options.get(CONF_THRESHOLD_HOURS, DEFAULT_THRESHOLD_HOURS))
-    async_add_entities(NoDataSensor(coordinator, imei, threshold) for imei in coordinator.trackers)
+    async_add_entities(NoDataSensor(coordinator, imei, coordinator.threshold) for imei in coordinator.trackers)
 
 
 class NoDataSensor(XexunEntity, BinarySensorEntity):

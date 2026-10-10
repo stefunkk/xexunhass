@@ -12,6 +12,6 @@ CONF_TRACKERS = "trackers"
 CONF_THRESHOLD_HOURS = "threshold_hours"
 
 DEFAULT_THRESHOLD_HOURS = 10
-SCAN_INTERVAL = timedelta(minutes=15)
+SCAN_INTERVAL = timedelta(hours=4)
 # How far back to look for the newest entry. Must exceed the alert threshold.
 LOOKBACK = timedelta(hours=48)
