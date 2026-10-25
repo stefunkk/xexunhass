@@ -1,6 +1,7 @@
 {
   "domain": "xexun",
   "name": "Xexun Tracker",
+  "categories": ["presence_location.trackers", "pets"],
   "codeowners": ["@stefunkk"],
   "config_flow": true,
   "documentation": "https://github.com/stefunkk/xexunhass",
